@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        border: 2px solid black;
+        padding: 20px;
+        margin: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        width: 90%;
+    }
+    .header {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+    }
+    .duration-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        margin-top: 10px;
+    }
+    .monthBlock, .hourBlock {
+        font-size: 18px;
+        padding: 10px;
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        flex: 1;
+        text-align: center;
+    }
+    .modulesBlock {
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f1f1f1;
+    }
+</style>
+<body>
+<script>
+    let coursesArray = [
+        {
+            title: 'JavaScript Complex',
+            monthDuration: 5,
+            hourDuration: 909,
+            modules: ['html', 'css', 'js', 'mysql', 'mongodb', 'react', 'angular', 'aws', 'docker', 'git', 'node.js']
+        },
+        {
+            title: 'Java Complex',
+            monthDuration: 6,
+            hourDuration: 909,
+            modules: ['html', 'css', 'js', 'mysql', 'mongodb', 'angular', 'aws', 'docker', 'git', 'java core', 'java advanced']
+        },
+        {
+            title: 'Python Complex',
+            monthDuration: 6,
+            hourDuration: 909,
+            modules: ['html', 'css', 'js', 'mysql', 'mongodb', 'angular', 'aws', 'docker', 'python core', 'python advanced']
+        },
+        {
+            title: 'QA Complex',
+            monthDuration: 4,
+            hourDuration: 909,
+            modules: ['html', 'css', 'js', 'mysql', 'mongodb', 'git', 'QA/QC']
+        },
+        {
+            title: 'FullStack',
+            monthDuration: 7,
+            hourDuration: 909,
+            modules: ['html', 'css', 'js', 'mysql', 'mongodb', 'react', 'angular', 'aws', 'docker', 'git', 'node.js', 'python', 'java']
+        },
+        {
+            title: 'Frontend',
+            monthDuration: 4,
+            hourDuration: 909,
+            modules: ['html', 'css', 'js', 'mysql', 'mongodb', 'react', 'angular', 'aws', 'docker', 'git', 'sass']
+        }
+    ];
+    console.log(coursesArray);
+
+    for (const course of coursesArray) {
+        let wrapper = document.createElement('div');
+        wrapper.classList.add('wrapper');
+
+        let header = document.createElement('div');
+        header.classList.add('header');
+        header.innerText = course.title;
+
+        let durationContainer = document.createElement('div');
+        durationContainer.classList.add('duration-container');
+
+        let monthBlock = document.createElement('div');
+        monthBlock.classList.add('monthBlock');
+        monthBlock.innerText = `Тривалість: ${course.monthDuration} місяців`;
+
+        let hourBlock = document.createElement('div');
+        hourBlock.classList.add('hourBlock');
+        hourBlock.innerText = `Години: ${course.hourDuration} год`;
+
+        durationContainer.appendChild(monthBlock);
+        durationContainer.appendChild(hourBlock);
+
+        let modulesBlock = document.createElement('div');
+        modulesBlock.classList.add('modulesBlock');
+        let modulesList = document.createElement('ul');
+
+        for (const module of course.modules) {
+            let li = document.createElement('li');
+            li.innerText = module;
+            modulesList.appendChild(li);
+        }
+
+        modulesBlock.appendChild(modulesList);
+
+        wrapper.appendChild(header);
+        wrapper.appendChild(durationContainer);
+        wrapper.appendChild(modulesBlock);
+
+        document.body.appendChild(wrapper);
+    }
+</script>
+</body>
+</html>

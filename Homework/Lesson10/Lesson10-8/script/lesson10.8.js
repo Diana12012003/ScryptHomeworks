@@ -1,13 +1,13 @@
 const tableContainer = document.getElementById('tableContainer');
-const tableGeneratorForm = document.forms['table']; // Отримуємо форму
+const tableGeneratorForm = document.forms['table'];
 
 tableGeneratorForm.onsubmit = function (e) {
     e.preventDefault();
     tableContainer.innerText = '';
 
-    const linesValue = +tableGeneratorForm.lines.value; // Отримуємо кількість рядків
-    const cellsValue = +tableGeneratorForm.cells.value; // Отримуємо кількість колонок
-    const contentValue = tableGeneratorForm.content.value; // Отримуємо вміст
+    const linesValue = +tableGeneratorForm.lines.value;
+    const cellsValue = +tableGeneratorForm.cells.value;
+    const contentValue = tableGeneratorForm.content.value;
     console.log(linesValue, cellsValue, contentValue);
 
     for (let i = 0; i < linesValue; i++) {
@@ -17,10 +17,7 @@ tableGeneratorForm.onsubmit = function (e) {
             td.innerText = contentValue;
             tr.appendChild(td);
         }
-
         tableContainer.appendChild(tr);
-
     }
-
 };
 

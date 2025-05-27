@@ -1,34 +1,45 @@
-fetch('https://dummyjson.com/recipes')
-    .then(res => res.json())
-    .then(data => {
-        let {recipes} = data;
+const url = new URL('https://dummyjson.com/recipes');
+url.searchParams.set('limit', '2');
 
-document.write(`<div>`);
-for (const recipe of recipes) {
-    document.write(`<div>`);
-    document.write(`<h1>${recipe.id}</h1>`);
-    document.write(`<h2>${recipe.name}</h2>`);
-    document.write(`<h3> ID користувача: ${recipe.userId}</h3>`);
-    document.write(`<img src="${recipe.image}" alt="${recipe.name}" style="width: 200px">`);
-    document.write(`<p>Кухня: ${recipe.cuisine}</p>`);
-    document.write(`<p>Складність: ${recipe.difficulty}</p>`);
-    document.write(`<p>Підготовка: ${recipe.prepTimeMinutes} хв</p>`);
-    document.write(`<p>Час приготування: ${recipe.cookTimeMinutes} хв</p>`);
-    document.write(`<p>Калорії на порцію: ${recipe.caloriesPerServing}</p>`);
-    document.write(`<p>Оцінка: ${recipe.rating} (${recipe.reviewCount} відгуків)</p>`);
-    document.write(`<p>Тип страви: ${recipe.mealType}</p>`);
-    document.write(`<p>Теги: ${recipe.tags}</p>`);
-    document.write(`<p>Порції: ${recipe.servings}</p>`);
-    document.write(`<h3>Інгредієнти:</h3>`);
-    for (const ingredient of recipe.ingredients) {
-        document.write(`<li>${ingredient}</li>`);
-    }
-    document.write(`</ul>`);
-    document.write(`<h3>Інструкція:</h3>`);
-    for (const step of recipe.instructions) {
-        document.write(`<li>${step}</li>`);
-    }
-    document.write(`</div>`);
-}
-document.write(`</div>`);
-});
+const target = document.getElementsByClassName('target')[0];
+fetch(url)
+    .then(value => value.json())
+    .then(recipesObject => {
+        const {recipes} = recipesObject;
+        for (const recipe of recipes) {
+            console.log(recipe);
+            const recipeDiv = document.createElement('div');
+            for (const recipeKey in recipe) {
+                if (Array.isArray(recipe[recipeKey])) {
+                    const arrayAndTitleDiv = document.createElement('div');
+                    const title = document.createElement('div');
+                    title.innerText = `${recipeKey}:`;
+                    const ol = document.createElement('ol');
+                    const array = recipe[recipeKey];
+                    for (const item of array) {
+                        const li = document.createElement('li');
+                        li.innerText = item;
+                        ol.appendChild(li);
+                    }
+                    arrayAndTitleDiv.append(title, ol);
+                    recipeDiv.appendChild(arrayAndTitleDiv);
+                } else {
+                    if (recipeKey !== 'image') {
+
+                        const keyDiv = document.createElement('div');
+                        keyDiv.innerText = `${recipeKey} : ${recipe[recipeKey]}`
+                        recipeDiv.appendChild(keyDiv);
+                    }
+                }
+            }
+
+            const img = document.createElement('img');
+            img.src = recipe.image;
+            recipeDiv.appendChild(img);
+
+
+            target.appendChild(recipeDiv);
+        }
+
+
+    });
